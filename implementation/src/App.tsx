@@ -1,7 +1,8 @@
 
 
 import React, { useState } from 'react';
-import './App.css';
+import './global-modern.css';
+import { theme } from './theme';
 // Settings keys
 const SETTINGS_KEY = 'fbk_settings';
 
@@ -207,8 +208,7 @@ function App() {
   }
 
   return (
-    <div className="App">
-
+    <div className="App" style={{ minHeight: '100vh', background: 'var(--background)' }}>
       {/* Only block the UI if on a small portrait device, otherwise render the app as normal */}
       {showRotateMsg && (
         <div style={{
@@ -217,8 +217,8 @@ function App() {
           left: 0,
           width: '100vw',
           height: '100vh',
-          background: 'rgba(0,0,0,0.85)',
-          color: '#fff',
+          background: 'rgba(24,26,32,0.96)',
+          color: 'var(--on-primary)',
           zIndex: 200,
           display: 'flex',
           alignItems: 'center',
@@ -226,11 +226,12 @@ function App() {
           flexDirection: 'column',
           fontSize: 22,
           textAlign: 'center',
+          letterSpacing: '-0.5px',
         }}>
-          <div style={{ marginBottom: 16 }}>
+          <div style={{ marginBottom: 20, fontSize: 40 }}>
             <span role="img" aria-label="rotate">🔄</span>
           </div>
-          Please rotate your device to landscape mode for the best FretboardKing experience.
+          <div style={{ fontWeight: 600 }}>Please rotate your device to landscape mode for the best FretboardKing experience.</div>
         </div>
       )}
 
@@ -239,26 +240,57 @@ function App() {
         aria-label="Settings"
         onClick={() => setSettingsOpen(true)}
         style={{
-          position: 'absolute',
-          top: 16,
-          left: 16,
-          background: 'none',
+          position: 'fixed',
+          top: theme.spacing(2),
+          left: theme.spacing(2),
+          background: 'var(--surface)',
           border: 'none',
           cursor: 'pointer',
           fontSize: 28,
           zIndex: 10,
+          color: 'var(--on-surface)',
+          borderRadius: '50%',
+          width: 48,
+          height: 48,
+          boxShadow: 'var(--shadow)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'background 0.2s, color 0.2s',
         }}
+        onMouseOver={e => (e.currentTarget.style.background = 'var(--primary)')}
+        onMouseOut={e => (e.currentTarget.style.background = 'var(--surface)')}
       >
         <span role="img" aria-label="Settings">⚙️</span>
       </button>
 
-      <h1 style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <img src={logo} alt="FretboardKing logo" style={{ width: 40, height: 40, verticalAlign: 'middle' }} />
-        FretboardKing
-      </h1>
-      <div style={{ marginBottom: 16 }}>
-        <span>Score: <b>{score}</b></span>
-        <span style={{ marginLeft: 24, color: '#888' }}>Yesterday: {yesterdayScore}</span>
+      <header style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 16,
+        padding: `${theme.spacing(4)} 0 ${theme.spacing(2)} 0`,
+        justifyContent: 'center',
+      }}>
+        <img src={logo} alt="FretboardKing logo" style={{ width: 48, height: 48, borderRadius: 12, boxShadow: '0 2px 8px #0004' }} />
+        <h1 style={{
+          fontSize: 36,
+          fontWeight: theme.font.headingWeight,
+          margin: 0,
+          color: 'var(--on-primary)',
+          letterSpacing: '-1px',
+        }}>FretboardKing</h1>
+      </header>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 32,
+        marginBottom: theme.spacing(2),
+        fontSize: 20,
+        color: 'var(--on-surface)',
+      }}>
+        <span>Score: <b style={{ color: 'var(--secondary)' }}>{score}</b></span>
+        <span style={{ color: '#888', fontSize: 16 }}>Yesterday: {yesterdayScore}</span>
       </div>
       <BarChart history={history} getLast30Days={getLast30Days} />
       <Fretboard
@@ -266,28 +298,42 @@ function App() {
         showStringNames={settings.showStringNames}
         fretboardColor={settings.fretboardColor}
       />
-      <div style={{ margin: '24px 0' }}>
-        <div style={{ fontSize: 18, marginBottom: 8 }}>
-          Which note is this? <b>({timer})</b>
+      <main style={{ margin: `${theme.spacing(3)} 0` }}>
+        <div style={{
+          fontSize: 22,
+          marginBottom: 12,
+          textAlign: 'center',
+          fontWeight: 500,
+          color: 'var(--on-primary)',
+        }}>
+          Which note is this? <b style={{ color: 'var(--primary)' }}>({timer})</b>
         </div>
-        <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
+        <div style={{
+          display: 'flex',
+          gap: 24,
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+        }}>
           {quiz.options.map((opt) => (
             <button
               key={opt}
               onClick={() => handleSelect(opt)}
               disabled={selected !== null}
               style={{
-                padding: '12px 24px',
-                fontSize: 18,
+                padding: '16px 36px',
+                fontSize: 22,
                 background: selected === opt
-                  ? (opt === quiz.correctNote ? '#4caf50' : '#e53935')
-                  : '#222',
-                color: '#fff',
+                  ? (opt === quiz.correctNote ? 'var(--secondary)' : 'var(--error)')
+                  : 'var(--surface)',
+                color: 'var(--on-primary)',
                 border: 'none',
-                borderRadius: 8,
+                borderRadius: 'var(--radius)',
                 cursor: selected === null ? 'pointer' : 'default',
                 opacity: selected !== null && selected !== opt ? 0.7 : 1,
-                transition: 'background 0.2s',
+                boxShadow: selected === opt ? '0 2px 12px #0004' : 'none',
+                fontWeight: 500,
+                marginBottom: 8,
+                transition: 'background 0.2s, box-shadow 0.2s',
               }}
             >
               {opt}
@@ -295,9 +341,18 @@ function App() {
           ))}
         </div>
         {feedback && (
-          <div style={{ marginTop: 12, fontSize: 20 }}>{feedback}</div>
+          <div style={{
+            marginTop: 16,
+            fontSize: 22,
+            color: feedback.startsWith('✅') ? 'var(--secondary)' : feedback.startsWith('❌') ? 'var(--error)' : 'var(--primary)',
+            fontWeight: 600,
+            minHeight: 32,
+            textAlign: 'center',
+            letterSpacing: '-0.5px',
+            transition: 'color 0.2s',
+          }}>{feedback}</div>
         )}
-      </div>
+      </main>
 
       {/* Settings Modal */}
       {settingsOpen && (
@@ -308,24 +363,26 @@ function App() {
             left: 0,
             width: '100vw',
             height: '100vh',
-            background: 'rgba(0,0,0,0.4)',
+            background: 'rgba(24,26,32,0.7)',
             zIndex: 100,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            animation: 'fadeIn 0.2s',
           }}
           onClick={() => setSettingsOpen(false)}
         >
           <div
             style={{
-              background: '#222',
-              color: '#fff',
-              borderRadius: 12,
+              background: 'var(--surface)',
+              color: 'var(--on-surface)',
+              borderRadius: 'var(--radius)',
               minWidth: 320,
               maxWidth: 400,
-              padding: 24,
-              boxShadow: '0 4px 32px #0008',
+              padding: theme.spacing(4),
+              boxShadow: 'var(--shadow)',
               position: 'relative',
+              animation: 'popIn 0.22s cubic-bezier(.4,2,.6,1)',
             }}
             onClick={e => e.stopPropagation()}
           >
@@ -338,34 +395,40 @@ function App() {
                 right: 12,
                 background: 'none',
                 border: 'none',
-                color: '#fff',
-                fontSize: 22,
+                color: 'var(--on-surface)',
+                fontSize: 26,
                 cursor: 'pointer',
+                borderRadius: '50%',
+                width: 36,
+                height: 36,
+                transition: 'background 0.2s',
               }}
+              onMouseOver={e => (e.currentTarget.style.background = 'var(--primary)')}
+              onMouseOut={e => (e.currentTarget.style.background = 'none')}
             >✖️</button>
-            <h2 style={{ marginTop: 0 }}>Settings & Stats</h2>
+            <h2 style={{ marginTop: 0, color: 'var(--on-primary)', fontWeight: 600, fontSize: 26 }}>Settings & Stats</h2>
             <div style={{ marginBottom: 18 }}>
-              <h3 style={{ margin: '12px 0 6px 0', fontSize: 16 }}>Stats</h3>
+              <h3 style={{ margin: '12px 0 6px 0', fontSize: 16, color: 'var(--on-surface)' }}>Stats</h3>
               <BarChart history={history} getLast30Days={getLast30Days} />
             </div>
             <div>
-              <h3 style={{ margin: '12px 0 6px 0', fontSize: 16 }}>Settings</h3>
-              <label style={{ display: 'block', marginBottom: 10 }}>
+              <h3 style={{ margin: '12px 0 6px 0', fontSize: 16, color: 'var(--on-surface)' }}>Settings</h3>
+              <label style={{ display: 'block', marginBottom: 14, fontSize: 16 }}>
                 <input
                   type="checkbox"
                   checked={settings.showStringNames}
                   onChange={handleToggleStringNames}
-                  style={{ marginRight: 8 }}
+                  style={{ marginRight: 10 }}
                 />
                 Show string names on fretboard
               </label>
-              <label style={{ display: 'block', marginBottom: 10 }}>
+              <label style={{ display: 'block', marginBottom: 10, fontSize: 16 }}>
                 Fretboard color:
                 <input
                   type="color"
                   value={settings.fretboardColor}
                   onChange={handleColorChange}
-                  style={{ marginLeft: 8, verticalAlign: 'middle' }}
+                  style={{ marginLeft: 10, verticalAlign: 'middle', border: '1px solid var(--border)' }}
                 />
               </label>
             </div>
@@ -381,24 +444,37 @@ function BarChart({ history, getLast30Days }: { history: { [date: string]: numbe
   const values = days.map((d) => history[d] || 0);
   const max = Math.max(1, ...values);
   return (
-    <div style={{ width: '80vw', maxWidth: 600, margin: '0 auto 24px auto', height: 100 }}>
-      <svg width="100%" height="100" viewBox={`0 0 ${days.length * 16} 100`} style={{ display: 'block' }}>
+    <div style={{
+      width: '90vw',
+      maxWidth: 700,
+      margin: '0 auto 28px auto',
+      height: 110,
+      background: 'var(--surface)',
+      borderRadius: 'var(--radius)',
+      boxShadow: '0 2px 12px #0002',
+      padding: '18px 18px 8px 18px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      transition: 'background 0.2s',
+    }}>
+      <svg width="100%" height="80" viewBox={`0 0 ${days.length * 16} 80`} style={{ display: 'block' }}>
         {values.map((v, i) => (
           <g key={i}>
             <rect
               x={i * 16 + 2}
-              y={100 - (v / max) * 80 - 10}
+              y={80 - (v / max) * 60}
               width={12}
-              height={(v / max) * 80}
-              fill="#4caf50"
-              rx={3}
+              height={(v / max) * 60}
+              fill="var(--secondary)"
+              rx={4}
+              style={{ transition: 'height 0.3s, y 0.3s' }}
             />
-            {/* Optionally, show value on hover */}
             <title>{`${days[i]}: ${v}`}</title>
           </g>
         ))}
       </svg>
-      <div style={{ fontSize: 12, color: '#888', textAlign: 'center', marginTop: 2 }}>
+      <div style={{ fontSize: 13, color: '#aaa', textAlign: 'center', marginTop: 2, letterSpacing: '0.2px' }}>
         Last 30 days
       </div>
     </div>
@@ -415,7 +491,18 @@ function Fretboard({ highlight, showStringNames = true, fretboardColor = '#222' 
   // For each marked fret, render a dot only once, centered vertically
   const markerFrets = [3, 5, 7, 9, 12];
   return (
-    <div style={{ position: 'relative', width: '80vw', maxWidth: '1200px', margin: '0 auto' }}>
+    <div style={{
+      position: 'relative',
+      width: '95vw',
+      maxWidth: '1200px',
+      margin: '0 auto',
+      background: 'var(--surface)',
+      borderRadius: 'var(--radius)',
+      boxShadow: '0 2px 12px #0002',
+      padding: '18px 0 18px 0',
+      overflowX: 'auto',
+      transition: 'background 0.2s',
+    }}>
       <table
         className="fretboard"
         style={{
@@ -434,18 +521,21 @@ function Fretboard({ highlight, showStringNames = true, fretboardColor = '#222' 
                   <td
                     key={fIdx}
                     style={{
-                      border: '1px solid #555',
-                      width: fIdx === 0 ? 40 : 'auto',
-                      height: 40,
+                      border: '1px solid var(--border)',
+                      width: fIdx === 0 ? 44 : 'auto',
+                      height: 44,
                       background: fIdx === 0
-                        ? '#333'
+                        ? '#23272f'
                         : isHighlight
-                          ? '#1976d2'
+                          ? 'var(--primary)'
                           : fretboardColor,
-                      color: fIdx === 0 ? '#fff' : '#aaa',
+                      color: fIdx === 0 ? 'var(--on-primary)' : '#b0b0b0',
                       textAlign: 'center',
                       position: 'relative',
                       padding: 0,
+                      fontWeight: fIdx === 0 ? 600 : 400,
+                      fontSize: fIdx === 0 ? 18 : 16,
+                      transition: 'background 0.2s',
                     }}
                   >
                     {fIdx === 0 && showStringNames ? string : ''}
@@ -462,17 +552,18 @@ function Fretboard({ highlight, showStringNames = true, fretboardColor = '#222' 
           key={fret}
           style={{
             position: 'absolute',
-            left: `calc(${((fret) / (FRETS + 1)) * 100}% + 40px / 2)`, // 40px for string label col
+            left: `calc(${((fret) / (FRETS + 1)) * 100}% + 44px / 2)`, // 44px for string label col
             top: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 16,
-            height: 16,
+            width: 18,
+            height: 18,
             borderRadius: '50%',
             background: '#fff',
-            boxShadow: '0 0 2px #000',
-            opacity: 0.85,
+            boxShadow: '0 0 4px #0006',
+            opacity: 0.92,
             zIndex: 2,
             pointerEvents: 'none',
+            transition: 'box-shadow 0.2s',
           }}
         />
       ))}

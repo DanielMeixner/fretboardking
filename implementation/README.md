@@ -1,24 +1,23 @@
 
-# FretboardKing & Logo
+# Modern Redesign (2025)
 
-The app is now called **FretboardKing** everywhere (no more 'Trainer').
-The app heading displays a new logo next to the name.
+FretboardKing now features a beautiful, modern UI inspired by Material and Fluent design systems:
+- Modern color palette, elegant spacing, and premium typography
+- Subtle animations and transitions for interactivity
+- Redesigned buttons, modals, and controls for a high-end feel
+- Fully responsive layout for mobile and desktop
+- All features from previous versions remain, but with a polished, professional look
 
-# Settings Modal & Customization
-
-You can now open a settings modal (gear icon, top left) to:
-- View your stats (last 30 days bar chart)
-- Toggle string name display on the fretboard
-- Change the fretboard background color (color picker)
-All settings are persisted in your browser.
-
-### Reviewer Instructions
+## Reviewer Instructions (Modern Redesign)
 - Confirm the app heading says 'FretboardKing' and shows the logo
-- Open the settings modal (gear icon)
+- Observe the modern color palette, rounded corners, and smooth transitions
+- Open the settings modal (gear icon, top left)
 - Test toggling string names on/off and confirm the fretboard updates
 - Test changing the fretboard color and confirm the update
 - Confirm settings persist after reload
-- Confirm stats (bar chart) are visible in the modal
+- Confirm stats (bar chart) are visible in the modal and use the new design
+- Test the quiz: answer questions, observe feedback animations and color changes
+- Confirm the app is visually consistent and responsive on both desktop and mobile
 # FretboardKing Implementation
 
 This is the implementation folder for the Guitar Fretboard Learning Application (MVP) using React + TypeScript and Vite.
@@ -53,19 +52,26 @@ This is the implementation folder for the Guitar Fretboard Learning Application 
    ```
 3. Open the local URL shown in the terminal (usually http://localhost:5173) in your browser.
 
+
 ### Features to Review
+- Modern, beautiful UI (Material/Fluent inspired)
 - Interactive fretboard (6 strings, 12 frets, markers at 3, 5, 7, 9, 12)
 - Quiz mode: random fret flashes, user selects correct note from 3 options
-- Timer and immediate feedback
+- Timer and immediate feedback with animated feedback
 - Score and yesterday's score display
-- Responsive layout (fretboard uses 80% of width)
+- Responsive layout (fretboard and controls adapt to screen size)
 - Fret markers: one dot per marked fret, centered
+- Settings modal: stats, string name toggle, color picker
+- 30-day bar chart with modern design
 
-### Reviewer Instructions
-- Test the quiz by answering questions and observing score updates
-- Confirm fretboard and markers render correctly on different screen sizes
+
+### How to Review
+- Test the quiz by answering questions and observing score/feedback
+- Confirm fretboard and markers render correctly on all screen sizes
 - Check that the highlighted fret matches the quiz question
 - Test the settings modal and all customization features
+- Try the app on both desktop and mobile (landscape/portrait)
+- Confirm the app looks and feels like a modern, high-end web app
 
 ---
 

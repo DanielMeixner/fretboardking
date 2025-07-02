@@ -22,7 +22,7 @@ FretboardKing now features a beautiful, modern UI inspired by Material and Fluen
 
 This is the implementation folder for the Guitar Fretboard Learning Application (MVP) using React + TypeScript and Vite.
 
-## Setup
+## Setup & Local Development
 
 1. Install dependencies:
    ```sh
@@ -32,6 +32,24 @@ This is the implementation folder for the Guitar Fretboard Learning Application 
    ```sh
    npm run dev
    ```
+
+## Deployment: GitHub Pages
+
+FretboardKing can be deployed as a static site using GitHub Pages:
+
+1. Ensure the `base` in `vite.config.ts` is `/fretboardking/` and the `homepage` field in `package.json` is correct.
+2. Build and deploy:
+   ```sh
+   npm run deploy
+   ```
+   This will build the app and publish the `dist` folder to the `gh-pages` branch using the `gh-pages` package.
+3. In your repository settings, set GitHub Pages to use the `gh-pages` branch as the source.
+4. Access your deployed app at:
+   https://danielmeixner.github.io/fretboardking/
+
+### Reviewer Instructions (Deployment)
+- Confirm the app loads and works at the GitHub Pages URL above
+- Test all features as described below in the deployed version
 
 ## Features
 - Minimal React + TypeScript setup

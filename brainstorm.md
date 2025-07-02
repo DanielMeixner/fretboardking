@@ -98,6 +98,20 @@ Create a cross-platform application to help guitar players learn and master the 
 
 - **Scoring & Progress Tracking:**
   - Display the current session score prominently during the quiz.
+
+---
+
+### July 2, 2025 — Score History & Visualization Ideas
+
+- **Score History Visualization:**
+  - Add a bar chart to display the user's daily scores for the last 30 days.
+  - Each bar represents one day's score, allowing users to see trends and progress over time.
+  - Chart should be visible on the main screen, below or next to the current score.
+  - Store daily scores in localStorage as a date-to-score mapping (e.g., `{ '2025-07-01': 10, '2025-07-02': 7, ... }`).
+  - Optionally, allow users to hover/tap on a bar to see the exact score and date.
+  - Use a simple chart library (e.g., Chart.js, Recharts) or a custom SVG/Canvas implementation for the bar chart.
+
+---
   - Show the user's score from the previous day for motivation and progress tracking.
   - Store daily scores locally (and later, optionally, in the cloud for logged-in users).
 

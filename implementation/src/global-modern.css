@@ -1,4 +1,5 @@
 /* Modern Material/Fluent inspired global styles for FretboardKing */
+
 :root {
   --primary: #1976d2;
   --secondary: #4caf50;
@@ -12,6 +13,21 @@
   --radius: 12px;
   --shadow: 0 4px 24px #0006;
   --font: 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Light mode variables */
+[data-color-mode="light"] {
+  --primary: #1976d2;
+  --secondary: #388e3c;
+  --error: #d32f2f;
+  --background: #f5f7fa;
+  --surface: #fff;
+  --on-primary: #222;
+  --on-secondary: #fff;
+  --on-surface: #222;
+  --border: #d0d7de;
+  --radius: 12px;
+  --shadow: 0 4px 24px #0002;
 }
 
 body {

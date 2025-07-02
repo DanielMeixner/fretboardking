@@ -17,6 +17,10 @@ function getDefaultSettings(): Settings {
     fretboardColor: '#222',
   };
 }
+
+import ColorModeToggle from './components/ColorModeToggle';
+import { useContext } from 'react';
+import { ColorModeContext } from './components/ColorModeContext';
 import './App.css';
 import logo from './logo.svg';
 
@@ -52,6 +56,7 @@ function getRandomQuiz() {
 }
 
 function App() {
+  const { colorMode } = useContext(ColorModeContext);
   // Detect portrait mode on small mobile devices
   const [showRotateMsg, setShowRotateMsg] = useState(false);
   React.useEffect(() => {
@@ -208,7 +213,7 @@ function App() {
   }
 
   return (
-    <div className="App" style={{ minHeight: '100vh', background: 'var(--background)' }}>
+    <div className="App" style={{ minHeight: '100vh', background: 'var(--background)' }} data-color-mode={colorMode}>
       {/* Only block the UI if on a small portrait device, otherwise render the app as normal */}
       {showRotateMsg && (
         <div style={{
@@ -413,6 +418,9 @@ function App() {
             </div>
             <div>
               <h3 style={{ margin: '12px 0 6px 0', fontSize: 16, color: 'var(--on-surface)' }}>Settings</h3>
+              <div style={{ marginBottom: 14 }}>
+                <ColorModeToggle />
+              </div>
               <label style={{ display: 'block', marginBottom: 14, fontSize: 16 }}>
                 <input
                   type="checkbox"

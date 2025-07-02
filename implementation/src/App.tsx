@@ -1,5 +1,19 @@
 
 import React, { useState } from 'react';
+// Settings keys
+const SETTINGS_KEY = 'fbk_settings';
+
+type Settings = {
+  showStringNames: boolean;
+  fretboardColor: string;
+};
+
+function getDefaultSettings(): Settings {
+  return {
+    showStringNames: true,
+    fretboardColor: '#222',
+  };
+}
 import './App.css';
 
 
@@ -35,6 +49,26 @@ function getRandomQuiz() {
 
 
 function App() {
+  // Settings state
+  const [settings, setSettings] = useState<Settings>(() => {
+    try {
+      return { ...getDefaultSettings(), ...JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}') };
+    } catch {
+      return getDefaultSettings();
+    }
+  });
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  // Persist settings
+  React.useEffect(() => {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  }, [settings]);
+  // Settings handlers
+  function handleToggleStringNames() {
+    setSettings((s) => ({ ...s, showStringNames: !s.showStringNames }));
+  }
+  function handleColorChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSettings((s) => ({ ...s, fretboardColor: e.target.value }));
+  }
   // Local storage keys
   const SCORE_KEY = 'fbk_score';
   const YESTERDAY_KEY = 'fbk_yesterday';
@@ -155,6 +189,24 @@ function App() {
 
   return (
     <div className="App">
+      {/* Settings button */}
+      <button
+        aria-label="Settings"
+        onClick={() => setSettingsOpen(true)}
+        style={{
+          position: 'absolute',
+          top: 16,
+          left: 16,
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          fontSize: 28,
+          zIndex: 10,
+        }}
+      >
+        <span role="img" aria-label="Settings">⚙️</span>
+      </button>
+
       <h1>FretboardKing Trainer</h1>
       <div style={{ marginBottom: 16 }}>
         <span>Score: <b>{score}</b></span>
@@ -163,6 +215,8 @@ function App() {
       <BarChart history={history} getLast30Days={getLast30Days} />
       <Fretboard
         highlight={{ stringIdx: quiz.stringIdx, fretIdx: quiz.fretIdx }}
+        showStringNames={settings.showStringNames}
+        fretboardColor={settings.fretboardColor}
       />
       <div style={{ margin: '24px 0' }}>
         <div style={{ fontSize: 18, marginBottom: 8 }}>
@@ -196,6 +250,80 @@ function App() {
           <div style={{ marginTop: 12, fontSize: 20 }}>{feedback}</div>
         )}
       </div>
+
+      {/* Settings Modal */}
+      {settingsOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.4)',
+            zIndex: 100,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onClick={() => setSettingsOpen(false)}
+        >
+          <div
+            style={{
+              background: '#222',
+              color: '#fff',
+              borderRadius: 12,
+              minWidth: 320,
+              maxWidth: 400,
+              padding: 24,
+              boxShadow: '0 4px 32px #0008',
+              position: 'relative',
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              aria-label="Close"
+              onClick={() => setSettingsOpen(false)}
+              style={{
+                position: 'absolute',
+                top: 12,
+                right: 12,
+                background: 'none',
+                border: 'none',
+                color: '#fff',
+                fontSize: 22,
+                cursor: 'pointer',
+              }}
+            >✖️</button>
+            <h2 style={{ marginTop: 0 }}>Settings & Stats</h2>
+            <div style={{ marginBottom: 18 }}>
+              <h3 style={{ margin: '12px 0 6px 0', fontSize: 16 }}>Stats</h3>
+              <BarChart history={history} getLast30Days={getLast30Days} />
+            </div>
+            <div>
+              <h3 style={{ margin: '12px 0 6px 0', fontSize: 16 }}>Settings</h3>
+              <label style={{ display: 'block', marginBottom: 10 }}>
+                <input
+                  type="checkbox"
+                  checked={settings.showStringNames}
+                  onChange={handleToggleStringNames}
+                  style={{ marginRight: 8 }}
+                />
+                Show string names on fretboard
+              </label>
+              <label style={{ display: 'block', marginBottom: 10 }}>
+                Fretboard color:
+                <input
+                  type="color"
+                  value={settings.fretboardColor}
+                  onChange={handleColorChange}
+                  style={{ marginLeft: 8, verticalAlign: 'middle' }}
+                />
+              </label>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 
@@ -231,7 +359,11 @@ function BarChart({ history, getLast30Days }: { history: { [date: string]: numbe
 }
 
 
-function Fretboard({ highlight }: { highlight?: { stringIdx: number; fretIdx: number } }) {
+function Fretboard({ highlight, showStringNames = true, fretboardColor = '#222' }: {
+  highlight?: { stringIdx: number; fretIdx: number };
+  showStringNames?: boolean;
+  fretboardColor?: string;
+}) {
   // For each marked fret, render a dot only once, centered vertically
   const markerFrets = [3, 5, 7, 9, 12];
   return (
@@ -261,14 +393,14 @@ function Fretboard({ highlight }: { highlight?: { stringIdx: number; fretIdx: nu
                         ? '#333'
                         : isHighlight
                           ? '#1976d2'
-                          : '#222',
+                          : fretboardColor,
                       color: fIdx === 0 ? '#fff' : '#aaa',
                       textAlign: 'center',
                       position: 'relative',
                       padding: 0,
                     }}
                   >
-                    {fIdx === 0 ? string : ''}
+                    {fIdx === 0 && showStringNames ? string : ''}
                   </td>
                 );
               })}

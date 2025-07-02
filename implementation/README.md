@@ -1,10 +1,17 @@
-## Quiz Feedback Update
+# Settings Modal & Customization
 
-When a user selects a wrong answer in the quiz, the app now displays the correct answer in the feedback message (e.g., '❌ Wrong! The correct answer was: X'). This helps users learn from their mistakes. For correct answers, the feedback remains '✅ Correct!'.
+You can now open a settings modal (gear icon, top left) to:
+- View your stats (last 30 days bar chart)
+- Toggle string name display on the fretboard
+- Change the fretboard background color (color picker)
+All settings are persisted in your browser.
 
 ### Reviewer Instructions
-- Test that after a wrong answer, the correct answer is shown in the feedback.
-- Test that after a correct answer, only '✅ Correct!' is shown.
+- Open the settings modal (gear icon)
+- Test toggling string names on/off and confirm the fretboard updates
+- Test changing the fretboard color and confirm the update
+- Confirm settings persist after reload
+- Confirm stats (bar chart) are visible in the modal
 # FretboardKing Implementation
 
 This is the implementation folder for the Guitar Fretboard Learning Application (MVP) using React + TypeScript and Vite.
@@ -51,6 +58,7 @@ This is the implementation folder for the Guitar Fretboard Learning Application 
 - Test the quiz by answering questions and observing score updates
 - Confirm fretboard and markers render correctly on different screen sizes
 - Check that the highlighted fret matches the quiz question
+- Test the settings modal and all customization features
 
 ---
 

@@ -1,3 +1,9 @@
+
+# FretboardKing & Logo
+
+The app is now called **FretboardKing** everywhere (no more 'Trainer').
+The app heading displays a new logo next to the name.
+
 # Settings Modal & Customization
 
 You can now open a settings modal (gear icon, top left) to:
@@ -7,6 +13,7 @@ You can now open a settings modal (gear icon, top left) to:
 All settings are persisted in your browser.
 
 ### Reviewer Instructions
+- Confirm the app heading says 'FretboardKing' and shows the logo
 - Open the settings modal (gear icon)
 - Test toggling string names on/off and confirm the fretboard updates
 - Test changing the fretboard color and confirm the update

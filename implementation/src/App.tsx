@@ -1,5 +1,7 @@
 
+
 import React, { useState } from 'react';
+import './App.css';
 // Settings keys
 const SETTINGS_KEY = 'fbk_settings';
 
@@ -15,6 +17,7 @@ function getDefaultSettings(): Settings {
   };
 }
 import './App.css';
+import logo from './logo.svg';
 
 
 const STRINGS = ['E', 'B', 'G', 'D', 'A', 'E']; // Standard tuning, low E at bottom
@@ -47,8 +50,24 @@ function getRandomQuiz() {
   return { stringIdx, fretIdx, correctNote, options };
 }
 
-
 function App() {
+  // Detect portrait mode on small mobile devices
+  const [showRotateMsg, setShowRotateMsg] = useState(false);
+  React.useEffect(() => {
+    function checkOrientation() {
+      const isPortrait = window.innerHeight > window.innerWidth;
+      const isSmall = Math.min(window.innerWidth, window.innerHeight) < 700;
+      setShowRotateMsg(isPortrait && isSmall);
+    }
+    checkOrientation();
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+    return () => {
+      window.removeEventListener('resize', checkOrientation);
+      window.removeEventListener('orientationchange', checkOrientation);
+    };
+  }, []);
+
   // Settings state
   const [settings, setSettings] = useState<Settings>(() => {
     try {
@@ -189,6 +208,32 @@ function App() {
 
   return (
     <div className="App">
+
+      {/* Only block the UI if on a small portrait device, otherwise render the app as normal */}
+      {showRotateMsg && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.85)',
+          color: '#fff',
+          zIndex: 200,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          fontSize: 22,
+          textAlign: 'center',
+        }}>
+          <div style={{ marginBottom: 16 }}>
+            <span role="img" aria-label="rotate">🔄</span>
+          </div>
+          Please rotate your device to landscape mode for the best FretboardKing experience.
+        </div>
+      )}
+
       {/* Settings button */}
       <button
         aria-label="Settings"
@@ -207,7 +252,10 @@ function App() {
         <span role="img" aria-label="Settings">⚙️</span>
       </button>
 
-      <h1>FretboardKing Trainer</h1>
+      <h1 style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <img src={logo} alt="FretboardKing logo" style={{ width: 40, height: 40, verticalAlign: 'middle' }} />
+        FretboardKing
+      </h1>
       <div style={{ marginBottom: 16 }}>
         <span>Score: <b>{score}</b></span>
         <span style={{ marginLeft: 24, color: '#888' }}>Yesterday: {yesterdayScore}</span>

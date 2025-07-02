@@ -132,7 +132,7 @@ function App() {
       setScore((s) => s + 1);
       setFeedback('✅ Correct!');
     } else {
-      setFeedback('❌ Wrong!');
+      setFeedback(`❌ Wrong! The correct answer was: ${quiz.correctNote}`);
     }
     setTimeout(() => {
       setFeedback(null);

@@ -1,3 +1,10 @@
+## Quiz Feedback Update
+
+When a user selects a wrong answer in the quiz, the app now displays the correct answer in the feedback message (e.g., '❌ Wrong! The correct answer was: X'). This helps users learn from their mistakes. For correct answers, the feedback remains '✅ Correct!'.
+
+### Reviewer Instructions
+- Test that after a wrong answer, the correct answer is shown in the feedback.
+- Test that after a correct answer, only '✅ Correct!' is shown.
 # FretboardKing Implementation
 
 This is the implementation folder for the Guitar Fretboard Learning Application (MVP) using React + TypeScript and Vite.

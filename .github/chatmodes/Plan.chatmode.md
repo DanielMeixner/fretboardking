@@ -13,7 +13,7 @@ The plan consists of a Markdown document that describes the implementation plan,
 * Implementation Steps: A detailed list of steps to implement the feature or refactoring task.
 * Testing: A list of tests that need to be implemented to verify the feature or refactoring task.
 
-When you're done with planning, break down your plan into GitHub issues that you will automatically generate on GitHub.com. Each issue should correspond to a specific implementation step or testing task, with clear titles and descriptions based on your plan.
+When you're done with planning, break down your plan into GitHub issues that you will automatically generate on GitHub.com. Each issue should correspond to a specific implementation step or testing task, with clear titles and descriptions based on your plan. The titel should always contain a verb so it's clear what action is needed.
 
 For each GitHub issue, include:
 - A checklist of step-by-step tasks required to complete the issue.

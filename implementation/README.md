@@ -18,9 +18,34 @@ This is the implementation folder for the Guitar Fretboard Learning Application 
 - Ready for PWA enhancements
 - See project root for further instructions and planning
 
-## Next Steps
-- Implement the interactive fretboard and quiz logic
-- See open GitHub issues for guidance
+
+## Usage & Testing
+
+### Running the App
+1. Install dependencies:
+   ```sh
+   npm install
+   ```
+2. Start the development server:
+   ```sh
+   npm run dev
+   ```
+3. Open the local URL shown in the terminal (usually http://localhost:5173) in your browser.
+
+### Features to Review
+- Interactive fretboard (6 strings, 12 frets, markers at 3, 5, 7, 9, 12)
+- Quiz mode: random fret flashes, user selects correct note from 3 options
+- Timer and immediate feedback
+- Score and yesterday's score display
+- Responsive layout (fretboard uses 80% of width)
+- Fret markers: one dot per marked fret, centered
+
+### Reviewer Instructions
+- Test the quiz by answering questions and observing score updates
+- Confirm fretboard and markers render correctly on different screen sizes
+- Check that the highlighted fret matches the quiz question
+
+---
 
       // Remove tseslint.configs.recommended and replace with this
       ...tseslint.configs.recommendedTypeChecked,

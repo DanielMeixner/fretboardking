@@ -33,13 +33,58 @@ function getRandomQuiz() {
   return { stringIdx, fretIdx, correctNote, options };
 }
 
+
 function App() {
-  const [score, setScore] = useState(0);
-  const [yesterdayScore] = useState(0); // TODO: Load from storage
+  // Local storage keys
+  const SCORE_KEY = 'fbk_score';
+  const YESTERDAY_KEY = 'fbk_yesterday';
+  const DATE_KEY = 'fbk_date';
+
+  // Get today's date as YYYY-MM-DD
+  function todayStr() {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  // State
+  const [score, setScore] = useState(() => {
+    const storedDate = localStorage.getItem(DATE_KEY);
+    const storedScore = localStorage.getItem(SCORE_KEY);
+    if (storedDate === todayStr() && storedScore) {
+      return parseInt(storedScore, 10);
+    }
+    return 0;
+  });
+  const [yesterdayScore, setYesterdayScore] = useState(() => {
+    const storedDate = localStorage.getItem(DATE_KEY);
+    const storedYesterday = localStorage.getItem(YESTERDAY_KEY);
+    if (storedDate === todayStr() && storedYesterday) {
+      return parseInt(storedYesterday, 10);
+    }
+    return 0;
+  });
   const [quiz, setQuiz] = useState(getRandomQuiz());
   const [selected, setSelected] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [timer, setTimer] = useState<number>(5);
+
+  // On mount, check if date changed and reset scores if needed
+  React.useEffect(() => {
+    const storedDate = localStorage.getItem(DATE_KEY);
+    if (storedDate !== todayStr()) {
+      // Move yesterday's score
+      localStorage.setItem(YESTERDAY_KEY, localStorage.getItem(SCORE_KEY) || '0');
+      localStorage.setItem(SCORE_KEY, '0');
+      localStorage.setItem(DATE_KEY, todayStr());
+      setYesterdayScore(parseInt(localStorage.getItem(SCORE_KEY) || '0', 10));
+      setScore(0);
+    }
+  }, []);
+
+  // Persist score and date on change
+  React.useEffect(() => {
+    localStorage.setItem(SCORE_KEY, score.toString());
+    localStorage.setItem(DATE_KEY, todayStr());
+  }, [score]);
 
   // Timer effect
   React.useEffect(() => {

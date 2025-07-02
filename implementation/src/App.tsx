@@ -39,6 +39,7 @@ function App() {
   const SCORE_KEY = 'fbk_score';
   const YESTERDAY_KEY = 'fbk_yesterday';
   const DATE_KEY = 'fbk_date';
+  const HISTORY_KEY = 'fbk_history'; // { 'YYYY-MM-DD': score, ... }
 
   // Get today's date as YYYY-MM-DD
   function todayStr() {
@@ -62,6 +63,14 @@ function App() {
     }
     return 0;
   });
+  // Score history: { 'YYYY-MM-DD': score, ... }
+  const [history, setHistory] = useState<{ [date: string]: number }>(() => {
+    try {
+      return JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+    } catch {
+      return {};
+    }
+  });
   const [quiz, setQuiz] = useState(getRandomQuiz());
   const [selected, setSelected] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
@@ -77,13 +86,26 @@ function App() {
       localStorage.setItem(DATE_KEY, todayStr());
       setYesterdayScore(parseInt(localStorage.getItem(SCORE_KEY) || '0', 10));
       setScore(0);
+      // Add yesterday's score to history
+      setHistory((prev) => {
+        const newHist = { ...prev };
+        const yest = storedDate || todayStr();
+        newHist[yest] = parseInt(localStorage.getItem(SCORE_KEY) || '0', 10);
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(newHist));
+        return newHist;
+      });
     }
   }, []);
 
-  // Persist score and date on change
+  // Persist score, date, and history on change
   React.useEffect(() => {
     localStorage.setItem(SCORE_KEY, score.toString());
     localStorage.setItem(DATE_KEY, todayStr());
+    setHistory((prev) => {
+      const newHist = { ...prev, [todayStr()]: score };
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(newHist));
+      return newHist;
+    });
   }, [score]);
 
   // Timer effect
@@ -120,6 +142,17 @@ function App() {
     }, 1200);
   }
 
+  // Get last 30 days for chart
+  function getLast30Days() {
+    const days = [];
+    for (let i = 29; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      days.push(d.toISOString().slice(0, 10));
+    }
+    return days;
+  }
+
   return (
     <div className="App">
       <h1>FretboardKing Trainer</h1>
@@ -127,6 +160,7 @@ function App() {
         <span>Score: <b>{score}</b></span>
         <span style={{ marginLeft: 24, color: '#888' }}>Yesterday: {yesterdayScore}</span>
       </div>
+      <BarChart history={history} getLast30Days={getLast30Days} />
       <Fretboard
         highlight={{ stringIdx: quiz.stringIdx, fretIdx: quiz.fretIdx }}
       />
@@ -164,6 +198,36 @@ function App() {
       </div>
     </div>
   );
+
+// Simple SVG bar chart for last 30 days
+function BarChart({ history, getLast30Days }: { history: { [date: string]: number }, getLast30Days: () => string[] }) {
+  const days = getLast30Days();
+  const values = days.map((d) => history[d] || 0);
+  const max = Math.max(1, ...values);
+  return (
+    <div style={{ width: '80vw', maxWidth: 600, margin: '0 auto 24px auto', height: 100 }}>
+      <svg width="100%" height="100" viewBox={`0 0 ${days.length * 16} 100`} style={{ display: 'block' }}>
+        {values.map((v, i) => (
+          <g key={i}>
+            <rect
+              x={i * 16 + 2}
+              y={100 - (v / max) * 80 - 10}
+              width={12}
+              height={(v / max) * 80}
+              fill="#4caf50"
+              rx={3}
+            />
+            {/* Optionally, show value on hover */}
+            <title>{`${days[i]}: ${v}`}</title>
+          </g>
+        ))}
+      </svg>
+      <div style={{ fontSize: 12, color: '#888', textAlign: 'center', marginTop: 2 }}>
+        Last 30 days
+      </div>
+    </div>
+  );
+}
 }
 
 

@@ -554,27 +554,72 @@ function Fretboard({ highlight, showStringNames = true, fretboardColor = '#222' 
           ))}
         </tbody>
       </table>
-      {/* Render marker dots absolutely over the table, one per marked fret */}
-      {markerFrets.map((fret) => (
-        <span
-          key={fret}
-          style={{
-            position: 'absolute',
-            left: `calc(${((fret) / (FRETS + 1)) * 100}% + 44px / 2)`, // 44px for string label col
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 18,
-            height: 18,
-            borderRadius: '50%',
-            background: '#fff',
-            boxShadow: '0 0 4px #0006',
-            opacity: 0.92,
-            zIndex: 2,
-            pointerEvents: 'none',
-            transition: 'box-shadow 0.2s',
-          }}
-        />
-      ))}
+      {/* Render marker dots absolutely over the table, one per marked fret, two for 12th fret */}
+      {markerFrets.map((fret) => {
+        if (fret === 12) {
+          // 12th fret gets 2 dots at 1/3 and 2/3 positions
+          return (
+            <React.Fragment key={fret}>
+              <span
+                style={{
+                  position: 'absolute',
+                  left: `calc(${((fret) / (FRETS + 1)) * 100}% + 44px / 2)`, // 44px for string label col
+                  top: '33.33%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 18,
+                  height: 18,
+                  borderRadius: '50%',
+                  background: '#fff',
+                  boxShadow: '0 0 4px #0006',
+                  opacity: 0.92,
+                  zIndex: 2,
+                  pointerEvents: 'none',
+                  transition: 'box-shadow 0.2s',
+                }}
+              />
+              <span
+                style={{
+                  position: 'absolute',
+                  left: `calc(${((fret) / (FRETS + 1)) * 100}% + 44px / 2)`, // 44px for string label col
+                  top: '66.67%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 18,
+                  height: 18,
+                  borderRadius: '50%',
+                  background: '#fff',
+                  boxShadow: '0 0 4px #0006',
+                  opacity: 0.92,
+                  zIndex: 2,
+                  pointerEvents: 'none',
+                  transition: 'box-shadow 0.2s',
+                }}
+              />
+            </React.Fragment>
+          );
+        } else {
+          // All other frets get single centered dot
+          return (
+            <span
+              key={fret}
+              style={{
+                position: 'absolute',
+                left: `calc(${((fret) / (FRETS + 1)) * 100}% + 44px / 2)`, // 44px for string label col
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 18,
+                height: 18,
+                borderRadius: '50%',
+                background: '#fff',
+                boxShadow: '0 0 4px #0006',
+                opacity: 0.92,
+                zIndex: 2,
+                pointerEvents: 'none',
+                transition: 'box-shadow 0.2s',
+              }}
+            />
+          );
+        }
+      })}
     </div>
   );
 }

@@ -533,7 +533,7 @@ function Fretboard({ highlight, showStringNames = true, fretboardColor = '#222' 
                       width: fIdx === 0 ? 44 : 'auto',
                       height: 44,
                       background: fIdx === 0
-                        ? '#23272f'
+                        ? 'var(--surface)'
                         : isHighlight
                           ? 'var(--primary)'
                           : fretboardColor,

@@ -1,18 +1,18 @@
-# FretboardKing 🎸
+# Fretboard-King 🎸
 
 **Master the guitar fretboard through interactive learning and gamified practice**
 
-[![Live Demo](https://img.shields.io/badge/Demo-Live-brightgreen)](https://danielmeixner.github.io/fretboardking/)
+[![Live Demo](https://img.shields.io/badge/Demo-Live-brightgreen)](https://danielmeixner.github.io/Fretboard-King/)
 [![React](https://img.shields.io/badge/Built%20with-React-blue)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/Built%20with-TypeScript-blue)](https://www.typescriptlang.org/)
 
-## 🎯 What is FretboardKing?
+## 🎯 What is Fretboard-King?
 
-FretboardKing is an interactive guitar fretboard learning application designed to help guitar players of all levels master note recognition and fretboard knowledge. Through a gamified quiz system, players can rapidly improve their ability to identify notes anywhere on the guitar neck.
+Fretboard-King is an interactive guitar fretboard learning application designed to help guitar players of all levels master note recognition and fretboard knowledge. Through a gamified quiz system, players can rapidly improve their ability to identify notes anywhere on the guitar neck.
 
-The app presents users with a visual representation of a guitar fretboard and challenges them to identify random notes through multiple-choice questions. With immediate feedback, score tracking, and progress visualization, FretboardKing transforms the often tedious process of learning fretboard theory into an engaging and rewarding experience.
+The app presents users with a visual representation of a guitar fretboard and challenges them to identify random notes through multiple-choice questions. With immediate feedback, score tracking, and progress visualization, Fretboard-King transforms the often tedious process of learning fretboard theory into an engaging and rewarding experience.
 
-## 🚀 [Try FretboardKing Live](https://danielmeixner.github.io/fretboardking/)
+## 🚀 [Try Fretboard-King Live](https://danielmeixner.github.io/Fretboard-King/)
 
 ## ✨ Key Features
 
@@ -43,10 +43,10 @@ The app presents users with a visual representation of a guitar fretboard and ch
 ## 📸 Screenshots
 
 ### Light Mode
-![FretboardKing Light Mode](https://github.com/user-attachments/assets/ee4f042e-6bb0-45c0-90b0-09ba16429634)
+![Fretboard-King Light Mode](https://github.com/user-attachments/assets/ee4f042e-6bb0-45c0-90b0-09ba16429634)
 
 ### Dark Mode
-![FretboardKing Dark Mode](https://github.com/user-attachments/assets/4ec35a87-2def-43a2-9c72-916233e8a18d)
+![Fretboard-King Dark Mode](https://github.com/user-attachments/assets/4ec35a87-2def-43a2-9c72-916233e8a18d)
 
 ### Settings & Customization
 ![Settings Modal](https://github.com/user-attachments/assets/0cdcf4ce-9298-433c-87a1-420c2ca85ae6)
@@ -57,7 +57,7 @@ The app presents users with a visual representation of a guitar fretboard and ch
 
 ## 🎮 How to Use
 
-1. **Visit the live app** at [danielmeixner.github.io/fretboardking](https://danielmeixner.github.io/fretboardking/)
+1. **Visit the live app** at [danielmeixner.github.io/Fretboard-King](https://danielmeixner.github.io/Fretboard-King/)
 2. **Watch the fretboard** - a random fret will be highlighted in blue
 3. **Choose the correct note** from the three multiple-choice options
 4. **Build your score** by answering correctly within the time limit
@@ -137,4 +137,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-**Ready to master the fretboard?** [Start learning now!](https://danielmeixner.github.io/fretboardking/) 🎸
+**Ready to master the fretboard?** [Start learning now!](https://danielmeixner.github.io/Fretboard-King/) 🎸

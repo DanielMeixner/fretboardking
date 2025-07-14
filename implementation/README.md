@@ -1,7 +1,7 @@
 
 # Modern Redesign (2025)
 
-FretboardKing now features a beautiful, modern UI inspired by Material and Fluent design systems:
+Fretboard-King now features a beautiful, modern UI inspired by Material and Fluent design systems:
 - Modern color palette, elegant spacing, and premium typography
 - Subtle animations and transitions for interactivity
 - Redesigned buttons, modals, and controls for a high-end feel
@@ -9,7 +9,7 @@ FretboardKing now features a beautiful, modern UI inspired by Material and Fluen
 - All features from previous versions remain, but with a polished, professional look
 
 ## Reviewer Instructions (Modern Redesign)
-- Confirm the app heading says 'FretboardKing' and shows the logo
+- Confirm the app heading says 'Fretboard-King' and shows the logo
 - Observe the modern color palette, rounded corners, and smooth transitions
 - Open the settings modal (gear icon, top left)
 - Test toggling string names on/off and confirm the fretboard updates
@@ -18,7 +18,7 @@ FretboardKing now features a beautiful, modern UI inspired by Material and Fluen
 - Confirm stats (bar chart) are visible in the modal and use the new design
 - Test the quiz: answer questions, observe feedback animations and color changes
 - Confirm the app is visually consistent and responsive on both desktop and mobile
-# FretboardKing Implementation
+# Fretboard-King Implementation
 
 This is the implementation folder for the Guitar Fretboard Learning Application (MVP) using React + TypeScript and Vite.
 
@@ -35,9 +35,9 @@ This is the implementation folder for the Guitar Fretboard Learning Application 
 
 ## Deployment: GitHub Pages
 
-FretboardKing can be deployed as a static site using GitHub Pages:
+Fretboard-King can be deployed as a static site using GitHub Pages:
 
-1. Ensure the `base` in `vite.config.ts` is `/fretboardking/` and the `homepage` field in `package.json` is correct.
+1. Ensure the `base` in `vite.config.ts` is `/Fretboard-King/` and the `homepage` field in `package.json` is correct.
 2. Build and deploy:
    ```sh
    npm run deploy
@@ -45,7 +45,7 @@ FretboardKing can be deployed as a static site using GitHub Pages:
    This will build the app and publish the `dist` folder to the `gh-pages` branch using the `gh-pages` package.
 3. In your repository settings, set GitHub Pages to use the `gh-pages` branch as the source.
 4. Access your deployed app at:
-   https://danielmeixner.github.io/fretboardking/
+   https://danielmeixner.github.io/Fretboard-King/
 
 ### Reviewer Instructions (Deployment)
 - Confirm the app loads and works at the GitHub Pages URL above

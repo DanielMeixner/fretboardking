@@ -236,7 +236,7 @@ function App() {
           <div style={{ marginBottom: 20, fontSize: 40 }}>
             <span role="img" aria-label="rotate">🔄</span>
           </div>
-          <div style={{ fontWeight: 600 }}>Please rotate your device to landscape mode for the best FretboardKing experience.</div>
+          <div style={{ fontWeight: 600 }}>Please rotate your device to landscape mode for the best Fretboard-King experience.</div>
         </div>
       )}
 
@@ -276,14 +276,14 @@ function App() {
         padding: `${theme.spacing(4)} 0 ${theme.spacing(2)} 0`,
         justifyContent: 'center',
       }}>
-        <img src={logo} alt="FretboardKing logo" style={{ width: 48, height: 48, borderRadius: 12, boxShadow: '0 2px 8px #0004' }} />
+        <img src={logo} alt="Fretboard-King logo" style={{ width: 48, height: 48, borderRadius: 12, boxShadow: '0 2px 8px #0004' }} />
         <h1 style={{
           fontSize: 36,
           fontWeight: theme.font.headingWeight,
           margin: 0,
           color: 'var(--on-primary)',
           letterSpacing: '-1px',
-        }}>FretboardKing</h1>
+        }}>Fretboard-King</h1>
       </header>
       <div style={{
         display: 'flex',

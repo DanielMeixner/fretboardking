@@ -1,4 +1,4 @@
-// Material-inspired color palette and spacing for FretboardKing
+// Material-inspired color palette and spacing for Fretboard-King
 export const theme = {
   primary: '#1976d2',
   secondary: '#4caf50',
